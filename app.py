@@ -1,13 +1,7 @@
 from os import system as command
 from tkinter import filedialog
-
-def printLine():
-    print(f"+{'-'*50}+")
-def printCenter(text: str):
-    print("|"+ text.center(50) + "|")
-
-def printLeft(text: str):
-    print("| " + text.ljust(49) + "|")
+from menu.mulai_menghitung import UI_mulaiMenghitung
+from ui_util import *
 
 def UI_menuUtama():
     command('cls')
@@ -21,20 +15,19 @@ def UI_menuUtama():
     printLeft("3. Grafis ")
     printLeft("e. Keluar")
     printLine()
-    
+
 while True:
     UI_menuUtama()
     _input = str(input('Command: ')).lower()
     if (_input == 'e'):
         break
     elif(_input == '1'):
+        _output = UI_mulaiMenghitung()
         command('cls')
-        print('Pilih file...')
-        videoFile = filedialog.askopenfilename()
-        printLine()
-        if (not len(videoFile)):
-            print('Pilih filenya dong :(')
+        if  _output is not None:
+            print(_output)
             input('Tekan enter untuk kembali...')
-            continue
-        
+        else:
+            print(_output)
+            input()
 command('cls')
