@@ -15,7 +15,7 @@
 
 ## Development Steps
 1. **Development Environment Setup**
-   - East installation of Python and necessary libraries with `pip install -r requirement.txt`
+   - Easy installation of Python and necessary libraries with `pip install -r requirement.txt`
 
 2. **Video Data Acquisition:**
    - Preparation of video source from camera or video file.
