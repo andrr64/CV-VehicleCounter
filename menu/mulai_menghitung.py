@@ -36,4 +36,9 @@ def UI_mulaiMenghitung() -> any:
     printLine()
     command('cls')
     print('Perhitungan dimulai...')
-    return counting(videoFile, datetime.strptime(tanggal, "%d/%m/%Y"), lokasi)
+    try:
+        return counting(videoFile, datetime.strptime(tanggal, "%d/%M/%Y"), lokasi)
+    except Exception as e:
+        command('cls')
+        input(e)
+        return None
