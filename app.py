@@ -1,7 +1,7 @@
 from os import system as command
 from os import path
 from tkinter import filedialog
-from menu.mulai_menghitung import UI_mulaiMenghitung
+from menu.start_counting import UI_startCounting
 from ui_util import *
 import json
 
@@ -39,7 +39,7 @@ while True:
         if (_input == 'e'):
             break
         elif(_input == '1'):
-            _output = UI_mulaiMenghitung()
+            _output = UI_startCounting()
             command('cls')
             if _output is not None:
                 try:

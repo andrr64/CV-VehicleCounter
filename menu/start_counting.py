@@ -5,7 +5,7 @@ from ui_util import *
 from menu.yolo_counting import *
 from copy import deepcopy
 
-def counting(fileURL, date: datetime, location, mode) -> map:
+def _counting(fileURL, date: datetime, location, mode) -> map:
     try:
         _output = yoloCounting(fileURL, mode)
         return {
@@ -17,7 +17,7 @@ def counting(fileURL, date: datetime, location, mode) -> map:
         input("Format tanggal salah. Harus dd/mm/yy")
         return None
 
-def UI_mulaiMenghitung() -> any:
+def UI_startCounting() -> any:
     command('cls')
     print('Pilih file...')
     videoFile = filedialog.askopenfilename()
@@ -37,7 +37,7 @@ def UI_mulaiMenghitung() -> any:
     command('cls')
     print('Perhitungan dimulai...')
     try:
-        return deepcopy(counting(videoFile, datetime.strptime(tanggal, "%d/%M/%Y"), lokasi, mode == 2))
+        return deepcopy(_counting(videoFile, datetime.strptime(tanggal, "%d/%M/%Y"), lokasi, mode == 2))
     except Exception as e:
         command('cls')
         input(e)
