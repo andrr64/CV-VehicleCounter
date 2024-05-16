@@ -2,7 +2,7 @@ from tkinter import filedialog
 from os import system as command
 from datetime import datetime
 from copy import deepcopy
-from menu.yolo_counting import yoloCounting
+from function.yolo import yoloCounting
 from ui_util import printLine
 
 def getVideoFile():
