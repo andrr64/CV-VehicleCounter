@@ -17,17 +17,19 @@ def UI_menuUtama():
     printLine()
 
 while True:
-    UI_menuUtama()
-    _input = str(input('Command: ')).lower()
-    if (_input == 'e'):
-        break
-    elif(_input == '1'):
-        _output = UI_mulaiMenghitung()
-        command('cls')
-        if  _output is not None:
-            print(_output)
-            input('Tekan enter untuk kembali...')
-        else:
-            print(_output)
-            input()
+    try:
+        UI_menuUtama()
+        _input = str(input('Command: ')).lower()
+        if (_input == 'e'):
+            break
+        elif(_input == '1'):
+            _output = UI_mulaiMenghitung()
+            command('cls')
+            if  _output is not None:
+                print(_output)
+                input('Tekan enter untuk kembali...')
+            else:
+                continue
+    except:
+        continue
 command('cls')
