@@ -3,22 +3,19 @@ from os import system as command
 from datetime import datetime
 from ui_util import *
 from menu.yolo_counting import *
+from copy import deepcopy
 
 def counting(fileURL, date: datetime, location, mode) -> map:
     try:
         _output = yoloCounting(fileURL, mode)
+        return {
+            'tanggal': date.strftime('%d/%m/%Y'),
+            'lokasi': location,
+            'data': _output
+        }
     except ValueError:
-        print("Format tanggal salah. Harus dd/mm/yy")
-        input()
+        input("Format tanggal salah. Harus dd/mm/yy")
         return None
-    result = {
-        'fileURL': fileURL,
-        'date': date,
-        'location': location,
-        'in': _output[0],
-        'out': _output[1],
-    }
-    return result
 
 def UI_mulaiMenghitung() -> any:
     command('cls')
@@ -40,7 +37,7 @@ def UI_mulaiMenghitung() -> any:
     command('cls')
     print('Perhitungan dimulai...')
     try:
-        return counting(videoFile, datetime.strptime(tanggal, "%d/%M/%Y"), lokasi, mode == 2)
+        return deepcopy(counting(videoFile, datetime.strptime(tanggal, "%d/%M/%Y"), lokasi, mode == 2))
     except Exception as e:
         command('cls')
         input(e)
