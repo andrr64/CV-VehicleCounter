@@ -1,16 +1,41 @@
 from tkinter import filedialog
 from os import system as command
 from datetime import datetime
-from ui_util import *
-from menu.yolo_counting import *
 from copy import deepcopy
+from menu.yolo_counting import yoloCounting
+from ui_util import printLine
 
-def _counting(fileURL, date: datetime, location, mode) -> map:
+def getVideoFile():
+    command('cls')
+    print('Pilih file...')
+    videoFile = filedialog.askopenfilename()
+    if not videoFile:
+        print('Pilih filenya dong :(')
+        input('Tekan enter untuk kembali...')
+        return None
+    command('cls')
+    print(f"File OK\n{videoFile}")
+    return videoFile
+
+def getDateAndLocation():
+    printLine()
+    print('Format tanggal: 12/12/2024')
+    printLine()
+    tanggal = str(input('Tanggal \t\t\t: '))
+    lokasi = str(input('Lokasi \t\t\t\t: '))
+    return tanggal, lokasi
+
+def getCountingMode():
+    printLine()
+    mode = int(input('Mode (1=silent, 2=video)\t: '))
+    return mode == 2
+
+def countingProcess(videoFile, tanggal, lokasi, mode):
     try:
-        _output = yoloCounting(fileURL, mode)
+        _output = yoloCounting(videoFile, mode)
         return {
-            'tanggal': date.strftime('%d/%m/%Y'),
-            'lokasi': location,
+            'tanggal': tanggal.strftime('%d/%m/%Y'),
+            'lokasi': lokasi,
             'data': _output
         }
     except ValueError:
@@ -18,26 +43,18 @@ def _counting(fileURL, date: datetime, location, mode) -> map:
         return None
 
 def UI_startCounting() -> any:
-    command('cls')
-    print('Pilih file...')
-    videoFile = filedialog.askopenfilename()
-    if (not len(videoFile)):
-        print('Pilih filenya dong :(')
-        input('Tekan enter untuk kembali...')
+    videoFile = getVideoFile()
+    if not videoFile:
         return None
-    command('cls')
-    print(f"File OK\n{videoFile}")
-    printLine()
-    print('Format tanggal: 12/12/2024')
-    printLine()
-    tanggal = str(input('Tanggal \t\t\t: '))
-    lokasi = str(input('Lokasi \t\t\t\t: '))
-    mode = int(input('Mode (1=silent, 2=video)\t: '))
-    printLine()
+
+    tanggal, lokasi = getDateAndLocation()
+    mode = getCountingMode()
+
     command('cls')
     print('Perhitungan dimulai...')
+    
     try:
-        return deepcopy(_counting(videoFile, datetime.strptime(tanggal, "%d/%M/%Y"), lokasi, mode == 2))
+        return deepcopy(countingProcess(videoFile, datetime.strptime(tanggal, "%d/%M/%Y"), lokasi, mode))
     except Exception as e:
         command('cls')
         input(e)
