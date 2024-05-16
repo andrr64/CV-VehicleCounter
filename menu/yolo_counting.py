@@ -3,7 +3,7 @@ from ultralytics.solutions import object_counter
 import cv2
 from datetime import datetime as dt
 
-def yoloCounting(videoLink, date : dt):
+def yoloCounting(videoLink, mode : bool):
     model = YOLO("yolov8n.pt")
     footageVideo = cv2.VideoCapture(videoLink)
     assert footageVideo.isOpened(), "Error reading video file"
@@ -14,15 +14,13 @@ def yoloCounting(videoLink, date : dt):
     
     # garis hitung
     line_points = [(10, int(fV_height/2)), (fV_width-10, int(fV_height/2))]
-    video_writer = cv2.VideoWriter(f"asd.avi",
-                               cv2.VideoWriter_fourcc(*'mp4v'),
-                               fV_fps,
-                               (fV_width, fV_height))
     counter = object_counter.ObjectCounter()
-    counter.set_args(view_img=True,
+    counter.set_args(view_img=mode,
                  reg_pts=line_points,
                  classes_names=model.names,
-                 draw_tracks=True)
+                 draw_tracks=True,
+                 line_thickness=2)
+    
     # Loop untuk membaca setiap frame video
     while footageVideo.isOpened():
         success, im0 = footageVideo.read()
@@ -36,11 +34,7 @@ def yoloCounting(videoLink, date : dt):
         # Memulai perhitungan objek
         im0 = counter.start_counting(im0, tracks)
 
-        # Menulis frame yang telah diproses ke video output
-        video_writer.write(im0)
-
     # Melepas sumber daya
     footageVideo.release()
-    video_writer.release()
     cv2.destroyAllWindows()
     return [counter.out_counts, counter.in_counts]
