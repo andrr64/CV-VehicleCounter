@@ -1,7 +1,9 @@
 from os import system as command
+from os import path
 from tkinter import filedialog
 from menu.mulai_menghitung import UI_mulaiMenghitung
 from ui_util import *
+import json
 
 def UI_menuUtama():
     command('cls')
@@ -16,6 +18,20 @@ def UI_menuUtama():
     printLeft("e. Keluar")
     printLine()
 
+def writeData(new_data: dict):
+    with open(DATA_FILENAME, 'r+') as file:
+        data: list = json.load(file)
+        data.append(new_data)
+        file.seek(0)  # Kembali ke awal file
+        json.dump(data, file, indent=4)
+        file.truncate()  # Potong sisa file jika ada
+
+DATA_FILENAME = 'data.json'
+
+if not path.exists(DATA_FILENAME):
+    with open(DATA_FILENAME, 'w') as file:
+        json.dump([], file, indent=4)        
+
 while True:
     try:
         UI_menuUtama()
@@ -25,9 +41,13 @@ while True:
         elif(_input == '1'):
             _output = UI_mulaiMenghitung()
             command('cls')
-            if  _output is not None:
-                print(_output)
-                input('Tekan enter untuk kembali...')
+            if _output is not None:
+                try:
+                    writeData(_output)
+                    input('Data berhasil ditulis\nTekan enter untuk kembali...')
+                except Exception as e:
+                    print(e)
+                    input('Terjadi kesalahan saat menulis data...')
             else:
                 continue
     except:
