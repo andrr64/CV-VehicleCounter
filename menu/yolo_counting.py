@@ -3,7 +3,7 @@ from ultralytics.solutions import object_counter
 import cv2
 from datetime import datetime as dt
 
-def yoloCounting(videoLink, mode : bool):
+def yoloCounting(videoLink, mode : bool) -> dict:
     model = YOLO("yolov8n.pt")
     footageVideo = cv2.VideoCapture(videoLink)
     assert footageVideo.isOpened(), "Error reading video file"
@@ -20,7 +20,7 @@ def yoloCounting(videoLink, mode : bool):
                  classes_names=model.names,
                  draw_tracks=True,
                  line_thickness=2)
-    
+
     # Loop untuk membaca setiap frame video
     while footageVideo.isOpened():
         success, im0 = footageVideo.read()
@@ -37,4 +37,6 @@ def yoloCounting(videoLink, mode : bool):
     # Melepas sumber daya
     footageVideo.release()
     cv2.destroyAllWindows()
-    return [counter.out_counts, counter.in_counts]
+    raw_data = counter.class_wise_count
+    filtered_data = {key: value for key, value in raw_data.items() if value['in'] != 0 or value['out'] != 0}
+    return filtered_data
