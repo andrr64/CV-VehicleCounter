@@ -4,6 +4,7 @@ from tkinter import filedialog
 from menu.start_counting import UI_startCounting
 from ui_util import *
 import json
+from menu.view_data import UI_viewData
 
 def UI_menuUtama():
     command('cls')
@@ -50,6 +51,9 @@ while True:
                     input('Terjadi kesalahan saat menulis data...')
             else:
                 continue
+        elif(_input == '2'):
+            _output = UI_viewData()
+
     except:
         continue
 command('cls')
