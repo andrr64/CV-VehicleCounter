@@ -1,5 +1,5 @@
-def printLine():
-    print(f"+{'-'*50}+")
+def printLine(length: 50):
+    print(f"+{'-'*length}+")
     
 def printCenter(text: str):
     print("|"+ text.center(50) + "|")
