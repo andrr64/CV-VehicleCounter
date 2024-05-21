@@ -1,4 +1,4 @@
-def printLine(length: 50):
+def printLine(length= 50):
     print(f"+{'-'*length}+")
     
 def printCenter(text: str):
