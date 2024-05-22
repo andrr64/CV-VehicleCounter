@@ -9,6 +9,8 @@ class Data:
     sum_in: int
     sum_out: int
     dt: datetime
+    data_length: int
+    sum_all: int
 
     def __init__(self, tanggal: str, lokasi: str, data: dict) -> None:
         self.tanggal = tanggal
@@ -16,7 +18,9 @@ class Data:
         self.data = data
         self.sum_in = sum(x['in'] for x in self.data.values())
         self.sum_out = sum(x['out'] for x in self.data.values())
+        self.sum_all = self.sum_in + self.sum_out
         self.dt = datetime.strptime(tanggal, '%d/%M/%Y')
+        self.data_length = len(self.data.keys())
 
 def sort_by_date(data_list: list[Data]) -> list[Data]:
     """
