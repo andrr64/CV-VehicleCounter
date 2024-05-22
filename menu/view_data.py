@@ -35,12 +35,30 @@ def UI_sortBy():
         return sort_by_out(__getData())
     return None
 
-def UI_detailData(data: dict):
-    pass
+def UI_detailData(data: Data):
+    data_kendaraan = data.data
+    while True:
+        command('cls')
+        printLine()
+        printCenter('Detail Data')
+        printLine()
+        printLeft(f'Tanggal      : {data.tanggal}')
+        printLeft(f'Lokasi       : {data.lokasi}')
+        printLeft(f'Panjang Data : {data.data_length}')
+        printLine()
+        for (i, key) in enumerate(data.data):
+            printLeft(f'{i+1}. {key}: {data.sum_all }')
+        printLine()
+        printCenter('e: Kembali')
+        printLine()
+        _input = str(input('Command : ')).lower()
+        if (_input == 'e'):
+            break
 
 def UI_viewData() :
     try:
         counts = sort_by_date(__getData())
+        data_length = len(counts)
         if (len(counts) == 0):
             command('cls')
             printLine()
@@ -73,5 +91,12 @@ def UI_viewData() :
                     counts = _output
             elif(_input == 'x'):
                 counts.reverse()
+            else:
+                try:
+                    _index = int(_input)-1
+                    if (0 <= _index < data_length):
+                        UI_detailData(counts[_index])
+                except Exception as e:
+                    input(e)
     except Exception as e:
         input(e)
