@@ -45,9 +45,10 @@ def UI_detailData(data: Data):
         printLeft(f'Tanggal      : {data.tanggal}')
         printLeft(f'Lokasi       : {data.lokasi}')
         printLeft(f'Panjang Data : {data.data_length}')
+        printLeft(f'Total Kend.  : {data.sum_all}')
         printLine()
-        for (i, key) in enumerate(data.data):
-            printLeft(f'{i+1}. {key}: {data.sum_all }')
+        for (i, key) in enumerate(data.data.keys()):
+            printLeft(f'{i+1}. {key}: in={data.data[key]['in']} out={data.data[key]['out']}')
         printLine()
         printCenter('e: Kembali')
         printLine()
