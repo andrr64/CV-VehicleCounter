@@ -16,8 +16,8 @@ def __getData() -> list[Data]:
     data = []
     with open('data.json', 'r') as file:
         data = json.load(file)
-    data = [Data(x['tanggal'], x['lokasi'], x['data']) for x in data]
-    return data
+    formatted_data = [Data(x['tanggal'], x['lokasi'], x['data']) for x in data]
+    return formatted_data
 
 def UI_sortBy():
     command('cls')
@@ -48,7 +48,7 @@ def UI_detailData(data: Data):
         printLeft(f'Total Kend.  : {data.sum_all}')
         printLine()
         for (i, key) in enumerate(data.data.keys()):
-            printLeft(f'{i+1}. {key}: in={data.data[key]['in']} out={data.data[key]['out']}')
+            printLeft(f'{i+1}. {key}: in={data.data[key]['IN']} out={data.data[key]['OUT']}')
         printLine()
         printCenter('e: Kembali')
         printLine()

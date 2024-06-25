@@ -16,8 +16,8 @@ class Data:
         self.tanggal = tanggal
         self.lokasi = lokasi
         self.data = data
-        self.sum_in = sum(x['in'] for x in self.data.values())
-        self.sum_out = sum(x['out'] for x in self.data.values())
+        self.sum_in = sum(x['IN'] for x in self.data.values())
+        self.sum_out = sum(x['OUT'] for x in self.data.values())
         self.sum_all = self.sum_in + self.sum_out
         self.dt = datetime.strptime(tanggal, '%d/%M/%Y')
         self.data_length = len(self.data.keys())

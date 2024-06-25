@@ -52,7 +52,11 @@ while True:
             else:
                 continue
         elif(_input == '2'):
-            _output = UI_viewData()
+            try:
+                _output = UI_viewData()
+            except e:
+                command('cls')
+                input(e)
 
     except:
         continue
