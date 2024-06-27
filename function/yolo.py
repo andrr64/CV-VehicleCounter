@@ -1,10 +1,11 @@
+from os import system
 from ultralytics import YOLO
 from ultralytics.solutions import object_counter
 import cv2
 import torch
 from datetime import datetime as dt
 
-def yoloCounting(videoLink, mode: bool) -> dict:
+def yoloCounting(videoLink, mode: bool, region: list) -> dict:
     if torch.cuda.is_available():
         model = YOLO("yolov8n.pt").to('cuda')
         # ... (rest of your CUDA-enabled code)
@@ -21,10 +22,9 @@ def yoloCounting(videoLink, mode: bool) -> dict:
     CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FPS))
     
     # garis hitung
-    line_points = [(10, int(fV_height/2)), (fV_width-10, int(fV_height/2))]
     counter = object_counter.ObjectCounter(
         view_img=False,
-        reg_pts=line_points,
+        reg_pts=region,
         classes_names=model.names,
         draw_tracks=True,
         line_thickness=2

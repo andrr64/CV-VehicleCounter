@@ -15,7 +15,6 @@ def UI_menuUtama():
     printLine()
     printLeft("1. Mulai Menghitung")
     printLeft("2. Data Kendaraan")
-    printLeft("3. Grafis ")
     printLeft("e. Keluar")
     printLine()
 
